@@ -21,13 +21,12 @@ public:
         std::cout << "Государство" << title << "сдалось" << endl;
         surrender = true;
     };
-    void war() {
-        std::cout << "***********Начало войны***********" << endl;
-         
+    void endwar() {
+        score = population * millitarypow;
     };
-   // void endwar();
     std::string title;
     int population;
+    float score;
     float millitarypow;
     bool surrender = false;
     bool win = false;
@@ -69,10 +68,12 @@ int main()
     peacefull* one = new peacefull();
     enemy* two = new enemy();
     one->Read();
-    two->Init("rome", 11000, 0.1);
-    getchar();
+    two->Init("rome", 11000, 1.1);
+    one->Display();
+    two->Display();
     std::cout << "***********Начало войны***********" << endl;
     std::cout << "У государств еще есть возможность этого избежать, если\n одно из государств сдастся";
+    //**********
     std::cout << "Государство" << one->title << "вы хотите сдаться? (1-да 2-нет)";
     int num;
     do {
@@ -81,6 +82,38 @@ int main()
     if(num==49){
         one->surrend();
     }
+    //*****
+    std::cout << "Государство" << two->title << "вы хотите сдаться? (1-да 2-нет)";
+    do {
+        num = getchar();
+    } while (num != 49 | num != 50);
+    if (num == 49) {
+        two->surrend();
+    }
 
+    if (one->surrender == true && two->surrender == true) {
+        std::cout << "Был заключен мирный переговор, война закончилась" << endl;
+    }
+    if (one->surrender == true && two->surrender == false) {
+        std::cout << "Государство "<<one->title<<" сдалось, победу одержало государство "<<two->title << endl;
+    }
+    if (one->surrender == false && two->surrender == true) {
+        std::cout << "Государство " << two->title << " сдалось, победу одержало государство " << one->title << endl;
+    }
+    if (one->surrender == false && two->surrender == false) {
+        one->devpopulation();
+        two->devmilitar();
+        one->endwar();
+        two->endwar();
+        if (one->score > two->score) {
+            std::cout<< "В ходе войны государство " <<two->title<< " потерпело поражение, победу одержало государство " << one->title << endl;
+        }
+        if (one->score < two->score) {
+            std::cout << "В ходе войны государство " << one->title << " потерпело поражение, победу одержало государство " << two->title << endl;
+        }
+        if (one->score == two->score) {
+            std::cout << "В ходе войны силы обоих сторон оказались равными, объявлена ничья!" << endl;
+        }
+    }
 
 }
