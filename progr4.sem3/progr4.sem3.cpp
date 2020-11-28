@@ -35,12 +35,12 @@ public:
 class peacefull : public nation {
 public:
     void devpopulation() {
-        std::cout << "У государства" << title << "выросла популяция, военная сила уменьшена";
-        population *= 1, 5;
-        millitarypow -= 0, 1;
+        std::cout << "\nУ государства " << title << " выросла популяция, военная сила уменьшена";
+        population *= 1.5;
+        millitarypow -= 0.1;
     };
     void Display() {
-        std::cout << "Информация о государстве" << title << endl;
+        std::cout << "Информация о государстве " << title << endl;
         std::cout << "Популяция - " << population << endl;
         std::cout << "Военная мощь - " << millitarypow << endl;
         std::cout << "Тип государства - Дружелюбное" << endl;
@@ -50,12 +50,12 @@ public:
 class enemy : public nation {
 public:
     void devmilitar() {
-        std::cout << "У государства" << title << "увеличилась военная мощь, популяция уменьшена";
+        std::cout << "\nУ государства " << title << " увеличилась военная мощь, популяция уменьшена";
         millitarypow += 1;
-        population *= 0, 7;
+        population *= 0.7;
     }
     void Display() {
-        std::cout << "Информация о государстве" << title << endl;
+        std::cout << "Информация о государстве " << title << endl;
         std::cout << "Популяция - " << population << endl;
         std::cout << "Военная мощь - " << millitarypow << endl;
         std::cout << "Тип государства - Военное" << endl;
@@ -68,25 +68,29 @@ int main()
     peacefull* one = new peacefull();
     enemy* two = new enemy();
     one->Read();
-    two->Init("rome", 11000, 1.1);
+    two->Init("Rome", 11000, 1.1);
     one->Display();
     two->Display();
     std::cout << "***********Начало войны***********" << endl;
-    std::cout << "У государств еще есть возможность этого избежать, если\n одно из государств сдастся";
+    std::cout << "\nУ государств еще есть возможность этого избежать, если\n одно из государств сдастся";
     //**********
-    std::cout << "Государство" << one->title << "вы хотите сдаться? (1-да 2-нет)";
+    std::cout << "\nГосударство " << one->title << " вы хотите сдаться? (1-да 2-нет)";
     int num;
     do {
         num = getchar();
-    } while (num != 49 || num != 50);
+        if (num == 50) break;
+        if (num == 49) break;
+    } while (1);
     if(num==49){
         one->surrend();
     }
     //*****
-    std::cout << "Государство" << two->title << "вы хотите сдаться? (1-да 2-нет)";
+    std::cout << "\nГосударство " << two->title << " вы хотите сдаться? (1-да 2-нет)";
     do {
         num = getchar();
-    } while (num != 49 | num != 50);
+        if (num == 50) break;
+        if (num == 49) break;
+    } while (1);
     if (num == 49) {
         two->surrend();
     }
@@ -109,7 +113,7 @@ int main()
             std::cout<< "В ходе войны государство " <<two->title<< " потерпело поражение, победу одержало государство " << one->title << endl;
         }
         if (one->score < two->score) {
-            std::cout << "В ходе войны государство " << one->title << " потерпело поражение, победу одержало государство " << two->title << endl;
+            std::cout << "\nВ ходе войны государство " << one->title << " потерпело поражение, победу одержало государство " << two->title << endl;
         }
         if (one->score == two->score) {
             std::cout << "В ходе войны силы обоих сторон оказались равными, объявлена ничья!" << endl;
